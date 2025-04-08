@@ -29,4 +29,4 @@ docker tag ${registry}${name}:${tag} ${registry}${name}:latest
 docker push ${registry}${name}:latest
 
 # Redeploy latest
-kubectl rollout restart deployment -n ${prefix} ${name}
+kubectl rollout restart deployment -n ${prefix} ${prefix}-${name}
