@@ -21,8 +21,9 @@ $baseDir = $data_base_path . '/';
 $message = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $researcherId = filter_input(INPUT_POST, 'researcher_id', FILTER_SANITIZE_STRING);
-    $studyId = filter_input(INPUT_POST, 'study_id', FILTER_SANITIZE_STRING);
+    // Replace deprecated FILTER_SANITIZE_STRING with htmlspecialchars
+    $researcherId = htmlspecialchars(trim($_POST['researcher_id'] ?? ''), ENT_QUOTES, 'UTF-8');
+    $studyId = htmlspecialchars(trim($_POST['study_id'] ?? ''), ENT_QUOTES, 'UTF-8');
     
     if ($researcherId && preg_match('/^[a-zA-Z0-9_]+$/', $researcherId)) {
         // Create researcher directory
