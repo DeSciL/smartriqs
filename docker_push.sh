@@ -1,5 +1,5 @@
 #!/bin/bash
-registry=registry.ethz.ch/descil/datascience/;name=smartriqs;prefix=descil;
+registry=registry.ethz.ch/descil/datascience/;name=smartriqs;prefix=;
 
 # Get latest tag or create a new one
 source tag_push.sh
