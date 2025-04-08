@@ -15,9 +15,6 @@ RUN mkdir -p /var/www/html/php/test_researcher2
 # Copy server-side PHP files
 COPY ["server-side scripts/*.php", "/var/www/html/"]
 
-# Create a simple index file
-RUN echo '<?php echo "<h1>ETH DeSciL Smartriqs</h1>"; ?>' > /var/www/html/index.php
-
 # Set proper permissions for Apache
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html
