@@ -1,5 +1,5 @@
 #!/bin/bash
-registry=registry.ethz.ch/descil/datascience/;name=smartriqs;prefix=;
+registry=registry.ethz.ch/descil/datascience/;name=smartriqs;prefix=descil;
 
 # Get latest tag or create a new one
 source tag_push.sh
@@ -11,7 +11,7 @@ set -e
 docker login ${registry}
 
 # Build the Docker image using the specified Dockerfile
-docker build -t ${registry}${prefix}${name}:${tag} -f Dockerfile . --network=host
+docker build -t ${registry}${name}:${tag} -f Dockerfile . --network=host
 if [ $? -ne 0 ]; then
   echo “~~~~ error: failed to build docker container ~~~~~”
 fi
@@ -20,13 +20,13 @@ fi
 # docker run -p 5000:80 ${registry}${name}:${tag}
 
 # Push the built Docker image to the registry
-docker push ${registry}${prefix}${name}:${tag}
+docker push ${registry}${name}:${tag}
 
 # Tag the image as 'latest'
-docker tag ${registry}${prefix}${name}:${tag} ${registry}${prefix}${name}:latest
+docker tag ${registry}${name}:${tag} ${registry}${name}:latest
 
 # Push the 'latest' tagged image to the registry
-docker push ${registry}${prefix}${name}:latest
+docker push ${registry}${name}:latest
 
 # Redeploy latest
-kubectl rollout restart deployment -n ${prefix} ${prefix}${name}
+kubectl rollout restart deployment -n ${prefix} ${name}
