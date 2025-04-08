@@ -31,6 +31,19 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Get latest tag pushed
+      id: tag
+      uses: 32teeth/action-github-tag@v1.0.7
+
+    - name: Get latest version pushed
+      id: version
+      uses: 32teeth/action-github-tag@v1.0.7
+      with:
+        numbers_only: true
+
+    - name: Return latest tag and version pushed
+      run: echo ${{steps.tag.outputs.tag}} ${{steps.version.outputs.tag}}
+
     # Build Container
     - name: Login to GitLab
       uses: docker/login-action@v3
@@ -38,8 +51,15 @@ jobs:
         registry: ${{ secrets.DESCIL_REGISTRY_URL }}
         username: ${{ secrets.DESCIL_REGISTRY_USER }}
         password: ${{ secrets.DESCIL_REGISTRY_PASSWORD }}
+        
     - name: Build the Docker image
-      run: docker build . --file $FOLDER/Dockerfile --tag $REGISTRY/$ORG/$REPO/$LABEL:latest --build-arg http_proxy="http://proxy.ethz.ch:3128" --build-arg https_proxy="http://proxy.ethz.ch:3128"
-    
+      run: docker build . --file $FOLDER/Dockerfile --tag $REGISTRY/$ORG/$REPO/$LABEL:${{steps.tag.outputs.tag}} --build-arg http_proxy="http://proxy.ethz.ch:3128" --build-arg https_proxy="http://proxy.ethz.ch:3128"
+
     - name: Push the Docker image
+      run: docker push $REGISTRY/$ORG/$REPO/$LABEL:${{steps.tag.outputs.tag}}
+    
+    - name: Tag the Docker image
+      run: docker tag $REGISTRY/$ORG/$REPO/$LABEL:${{steps.tag.outputs.tag}} $REGISTRY/$ORG/$REPO/$LABEL:latest
+    
+    - name: Push Docker tag
       run: docker push $REGISTRY/$ORG/$REPO/$LABEL:latest
