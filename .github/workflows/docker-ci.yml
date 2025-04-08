@@ -48,5 +48,5 @@ jobs:
       with:
         method: kubeconfig
         kubeconfig: ${{ secrets.K8S_KUBECONFIG }}
-    - name: Redeploy infra nginx
-      run: kubectl rollout restart deployment $LABEL -n $NAMESPACE
+    - name: Redeploy smartriqs
+      run: kubectl rollout restart deployment descil-smartriqs -n $NAMESPACE
