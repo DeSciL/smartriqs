@@ -33,6 +33,8 @@ header("Access-Control-Allow-Origin: *");
 $status = null;
 $errorCount = 0;
 
+$data_base_path = getenv('SMARTRIQS_DATA_BASE_PATH') ?: 'data';
+
 // Add functions
 include "functions.php";
 
@@ -55,7 +57,7 @@ $addText = str_replace(">"," > ",$addText);
 // If there is any error, display that, otherwise, display chat log
 if ($errorCount > 0){ echo "<chatLog>" . $status . "</chatLog>";}
 else{
-	$chatLogFolder = $researcherID . "/" . $studyID . "_chat_logs";
+	$chatLogFolder = $data_base_path . "/" / $researcherID . "/" . $studyID . "_chat_logs";
 	
 	// If study chat folder does not exist, create it:
 	if (file_exists($chatLogFolder) == FALSE){
@@ -103,5 +105,3 @@ else{
 	echo "<br><chatLog>" . $chatLog . "</chatLog>";
 }
 ?>
-
-

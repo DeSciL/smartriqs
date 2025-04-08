@@ -30,6 +30,9 @@ Journal of Behavioral and Experimental Finance, 22, 161-169. doi: 10.1016/j.jbef
 
 <?php
 
+// Get data base path from environment variable, default to /data
+$data_base_path = getenv('SMARTRIQS_DATA_BASE_PATH') ?: 'data';
+
 // This function adds data to the datafile.
 function addData($handle_name,$data, $datafile){
 	$handle_name = fopen($datafile, "a"); 

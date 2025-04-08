@@ -53,7 +53,7 @@ if (empty($_GET["timeOut"]))      	{$timeOut = "no";}		else {$timeOut = $_GET['t
 if (empty($_GET["timeOutLog"]))    	{$timeOutLog = "";}		else {$timeOutLog = $_GET['timeOutLog'];}
 
 // Check whether the imported values are valid.	
-if (file_exists($researcherID) == FALSE)	{errorMessage("101");};
+if (file_exists($data_base_path . "/" . $researcherID) == FALSE)	{errorMessage("101");};
 if ($groupSize < 2 or $groupSize > 8)	{errorMessage("104");}
 if (filter_var($numStages, FILTER_VALIDATE_INT) == FALSE or $numStages < 1)	{errorMessage("105");}
 if ($getStage > $numStages or filter_var($getStage, FILTER_VALIDATE_INT) == FALSE or $getStage < 1)	{errorMessage("107");}
@@ -62,7 +62,7 @@ if ($getStage > $numStages or filter_var($getStage, FILTER_VALIDATE_INT) == FALS
 if ($errorCount == 0) {
 	
 	$playerIndexArray = getPlayerIndexes($groupSize, $numStages);	// Get player indexes
-	$datafile = $researcherID . "/" . $studyID . "_rawdata.csv"; 	// Get datafile
+	$datafile = $data_base_path . "/" . $researcherID . "/" . $studyID . "_rawdata.csv"; 	// Get datafile
 	
 	if (file_exists($datafile) == FALSE) {errorMessage("102");} 
 	

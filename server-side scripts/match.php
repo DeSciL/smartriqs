@@ -54,7 +54,7 @@ if (empty($_GET["conditions"]))    			{$conditionsString = "";}		else {$conditio
 if (empty($_GET["participantCondition"]))	{$participantCondition = "";}	else {$participantCondition = 	$_GET["participantCondition"];}
 
 // Check whether the imported values are valid	
-if (file_exists($researcherID) == FALSE)	{errorMessage("101");};
+if (file_exists($data_base_path . "/" . $researcherID) == FALSE)	{errorMessage("101");};
 if (in_array($groupSize, array(2,3,4,5,6,7,8)) == FALSE)	{errorMessage("104");}
 if (count($rolesArray) != $groupSize)		{errorMessage("201");}
 if (in_array($participantRole, $rolesArray) == FALSE and $participantRole != "random")	{errorMessage("106");}
@@ -64,7 +64,7 @@ if (count($conditionsArray) > 1 and in_array($participantCondition, $conditionsA
 // MATCHING 
 if ($errorCount == 0) {	
 	$playerIndexArray = getPlayerIndexes($groupSize, $numStages);	// Get player indexes
-	$datafile = $researcherID . "/" . $studyID . "_rawdata.csv"; 	// Get datafile
+	$datafile = $data_base_path . "/" . $researcherID . "/" . $studyID . "_rawdata.csv"; 	// Get datafile
 	
 	if (file_exists($datafile) == FALSE) {	// Check if the study database already exists. If not, then create it (and add header).
 		addHeader($datafile, $groupSize, $numStages, $rolesArray);	

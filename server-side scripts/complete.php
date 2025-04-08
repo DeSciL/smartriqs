@@ -45,7 +45,7 @@ if (empty($_GET["groupSize"])) 				{errorMessage("004");} 	else {$groupSize = 		
 if (empty($_GET["numStages"]))      		{errorMessage("005");}	else {$numStages = 		$_GET["numStages"];}
 
 // Check if values are valid
-if (file_exists($researcherID) == FALSE)	{errorMessage("101");};
+if (file_exists($data_base_path . "/" . $researcherID) == FALSE)	{errorMessage("101");};
 if (in_array($groupSize, array(2,3,4,5,6,7,8)) == FALSE)	{errorMessage("104");}
 if (filter_var($numStages, FILTER_VALIDATE_INT) == FALSE or $numStages < 1)	{errorMessage("105");}
 
@@ -53,7 +53,7 @@ if (filter_var($numStages, FILTER_VALIDATE_INT) == FALSE or $numStages < 1)	{err
 if ($errorCount == 0) {
 	
 	$playerIndexArray = getPlayerIndexes($groupSize, $numStages);	// Get player indexes based on group size and number of stages
-	$datafile = $researcherID . "/" . $studyID . "_rawdata.csv"; 	// Get path of database
+	$datafile = $data_base_path . "/" . $researcherID . "/" . $studyID . "_rawdata.csv"; 	// Get path of database
 	
 	if (file_exists($datafile) == FALSE) {errorMessage("102");}		// Display error if database does not exist
 	

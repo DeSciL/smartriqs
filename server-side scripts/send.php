@@ -50,7 +50,7 @@ if (empty($_GET["timeZone"]))				{$timeZone = 0;} 		else {$timeZone = 		$_GET["t
 $currentTime = getTime($timeZone);
 
 // Check whether the imported values are valid	
-if (file_exists($researcherID) == FALSE)	{errorMessage("101");};
+if (file_exists($data_base_path . "/" . $researcherID) == FALSE)	{errorMessage("101");};
 if (in_array($groupSize, array(2,3,4,5,6,7,8)) == FALSE)	{errorMessage("104");}
 if (filter_var($numStages, FILTER_VALIDATE_INT) == FALSE or $numStages < 1)	{errorMessage("105");}
 if ($sendStage > $numStages or filter_var($sendStage, FILTER_VALIDATE_INT) == FALSE or $sendStage < 1)	{errorMessage("107");}
@@ -59,7 +59,7 @@ if ($sendStage > $numStages or filter_var($sendStage, FILTER_VALIDATE_INT) == FA
 if ($errorCount == 0) {
 	
 	$playerIndexArray = getPlayerIndexes($groupSize, $numStages);	// Get player indexes
-	$datafile = $researcherID . "/" . $studyID . "_rawdata.csv"; 	// Get path of datafile
+	$datafile = $data_base_path . "/" . $researcherID . "/" . $studyID . "_rawdata.csv"; 	// Get path of datafile
     
 	// Check if the study database exists	
 	if (file_exists($datafile) == FALSE) {errorMessage("102");} 
