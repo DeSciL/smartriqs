@@ -43,13 +43,3 @@ jobs:
     
     - name: Push the Docker image
       run: docker push $REGISTRY/$ORG/$REPO/$LABEL:latest
-
-    # Deploy on Kubernetes
-    - uses: azure/setup-kubectl@v4
-      id: install
-    - uses: azure/k8s-set-context@v4
-      with:
-        method: kubeconfig
-        kubeconfig: ${{ secrets.K8S_KUBECONFIG }}
-    - name: Redeploy smartriqs
-      run: kubectl rollout restart deployment descil-smartriqs -n $NAMESPACE
