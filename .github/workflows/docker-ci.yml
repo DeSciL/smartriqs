@@ -3,7 +3,10 @@
 name: Docker CI
    
 # Controls when the workflow will run
-# on:
+on:
+  push:
+    tags:     # Pattern matched against refs/tags
+      - '*'   # Push events to every tag not containing /
 #   push:
 #     branches: [ "main" ]
 
