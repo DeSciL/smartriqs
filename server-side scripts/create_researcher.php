@@ -17,7 +17,7 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || $_SERVER['PHP_AUTH_USER'] !== $admin_us
 }
 
 $data_base_path = getenv('SMARTRIQS_DATA_BASE_PATH') ?: 'data';
-$baseDir = '/var/www/html/php/' . $data_base_path . '/';
+$baseDir = $data_base_path . '/';
 $message = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
